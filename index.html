@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="background-color: rgb(235, 53, 53);">
+
+    <div class="box" id="box0" style="background-color: rgba(161, 56, 126, 0.788); font-weight: 800; width: 485px; height: 560px;  top: 45px;
+    left: 200px; position: absolute;">
+        <h1 style="font-size: 50px; margin-top: 30px; text-align: center;">Player 1</h1>
+        <h1 id="p0" style="font-size: 70px; margin-top: 30px; text-align: center;">0</h1>
+
+    </div>
+    <div class="box" id="box1" style="background-color: rgba(161, 56, 126, 0.788); font-weight: 800; width: 485px; height: 560px;  top: 45px;
+    right: 200px; position: absolute;">
+        <h1 style="font-size: 50px; margin-top: 30px; text-align: center;">Player 2</h1>
+        <h1 id="p1" style="font-size: 70px; margin-top: 30px; text-align: center;">0</h1>
+
+    </div>
+
+    <div class="box" style="border-radius: 8px; background-color: rgb(81, 117, 236); font-weight: 800; width: 180px; height: 100px;
+    top: 465px; left: 350px; position: absolute;">
+        <h2 style="text-align: center; margin-top: 8px;">Current</h2>
+        <h1 style="text-align: center; margin-top: 8px;" id="current0">0</h1>
+
+    </div>
+
+    <div class="box" style="border-radius: 8px; background-color:rgb(81, 117, 236); font-weight: 800; width: 180px; height: 100px;  top: 465px;
+    right: 340px; position: absolute;">
+        <h2 style="text-align: center; margin-top: 8px;">Current</h2>
+        <h1 style="text-align: center; margin-top: 8px;" id="current1">0</h1>
+
+    </div>
+    <div class="image" style="border-radius: 8px; top: 220px;
+    left: 630px; position: absolute;">
+    <img id="image1" src="dice-1.png" width="100" height="100" style="border-radius: 12px;">
+    <img id="image2" src="dice-2.png" width="100" height="100" style="border-radius: 12px;">
+    <img id="image3" src="dice-3.png" width="100" height="100" style="border-radius: 12px;">
+    <img id="image4" src="dice-4.png" width="100" height="100" style="border-radius: 12px;">
+    <img id="image5" src="dice-5.png" width="100" height="100" style="border-radius: 12px;">
+    <img id="image6" src="dice-6.png" width="100" height="100" style="border-radius: 12px;">
+    </div>
+    <button id="newgame" type="button" class="btn btn-success" style="background-color: rgb(248, 157, 124); font-size: larger; 
+    border-radius: 10px; width: 180px; height: 50px; position: absolute; margin-left: 580px; margin-top: 60px;">🔄 New
+        game</button>
+
+    <button id="roll" type="button" class="btn btn-success" style="background-color: rgb(248, 157, 124); font-size: larger; 
+    border-radius: 10px; width: 150px; height: 50px; position: absolute; margin-left: 600px; margin-top: 380px;">🎲
+        Roll dice</button>
+
+    <button id="hold" type="button" class="btn btn-success" style="background-color: rgb(248, 157, 124); font-size: larger; 
+    border-radius: 15px; width: 120px; height: 50px; position: absolute; margin-left: 610px; margin-top: 460px;">📥
+        Hold</button>
+
+    <div class="container" id="won1"
+        style="padding: 5px; border-radius: 10px; background-color: darkgreen; font-size: xx-large; position: absolute; margin-left: 500px; margin-top: 200px;">
+        <h1>Player 1 Won</h1>
+    </div>
+    <div class="container" id="won2"
+        style="padding: 5px; border-radius: 10px; background-color: darkgreen; font-size: xx-large; position: absolute; margin-left: 500px; margin-top: 200px;">
+        <h1>Player 2 Won</h1>
+    </div>
+
+    <script>
+        
+        document.getElementById(`image1`).style.display = 'block';
+        document.getElementById(`image2`).style.display = 'none';
+        document.getElementById(`image3`).style.display = 'none';
+        document.getElementById(`image4`).style.display = 'none';
+        document.getElementById(`image5`).style.display = 'none';
+        document.getElementById(`image6`).style.display = 'none';
+        let box0 = document.getElementById('box0');
+        let box1 = document.getElementById('box1');
+        document.getElementById('won1').style.display = 'none';
+        document.getElementById('won2').style.display = 'none';
+        let currentscore = 0;
+        let activePlayer = 0;
+        document.getElementById(`box${activePlayer}`).style.backgroundColor = 'rgba(211, 193, 205, 0.788)';
+
+        let roll = document.getElementById('roll');
+        roll.addEventListener('click', fun1);
+        function fun1() {
+            document.getElementById(`image1`).style.display = 'none';
+            document.getElementById(`image2`).style.display = 'none';
+            document.getElementById(`image3`).style.display = 'none';
+            document.getElementById(`image4`).style.display = 'none';
+            document.getElementById(`image5`).style.display = 'none';
+            document.getElementById(`image6`).style.display = 'none';
+            console.log('for 1 it is clicked');
+            let dice = Math.trunc(Math.random() * 6) + 1;
+            document.getElementById(`image${dice}`).style.display = 'block';
+            
+            if (dice != 1) {
+                currentscore += dice;
+                document.getElementById(`current${activePlayer}`).innerText = currentscore;
+                
+            }
+            else {
+                document.getElementById(`box${activePlayer}`).style.backgroundColor = 'rgba(161, 56, 126, 0.788)';
+                document.getElementById(`current${activePlayer}`).innerText = 0;
+                activePlayer = activePlayer == 0 ? 1 : 0;
+                currentscore = 0;
+                document.getElementById(`box${activePlayer}`).style.backgroundColor = 'rgba(211, 193, 205, 0.788)';
+                
+            }
+        }
+        let hold = document.getElementById('hold');
+        hold.addEventListener('click', fun2);
+        function fun2() {
+            document.getElementById(`box${activePlayer}`).style.backgroundColor = 'rgba(161, 56, 126, 0.788)';
+            document.getElementById(`p${activePlayer}`).innerText = Number(document.getElementById(`p${activePlayer}`).innerText) + currentscore;
+            document.getElementById(`current${activePlayer}`).innerText = 0;
+            activePlayer = activePlayer == 0 ? 1 : 0;
+            document.getElementById(`box${activePlayer}`).style.backgroundColor = 'rgba(211, 193, 205, 0.788)';
+            currentscore = 0;
+            fun8();
+        }
+
+        function fun8() {
+            let p0 = document.getElementById('p0');
+            let p1 = document.getElementById('p1');
+            if (p0.innerText >= 20) {
+                won1.style.display = 'block';
+                let roll = document.getElementById('roll');
+                roll.style.display = 'none';
+                let hold = document.getElementById('hold');
+                hold.style.display = 'none';
+                document.body.style.backgroundColor = 'yellowgreen';
+            }
+            else if (p1.innerText >= 20) {
+                won2.style.display = 'block';
+                let roll = document.getElementById('roll');
+                roll.style.display = 'none';
+                let hold = document.getElementById('hold');
+                hold.style.display = 'none';
+                document.body.style.backgroundColor = 'yellowgreen';
+            }
+        }
+
+
+        let newgame = document.getElementById('newgame');
+        newgame.addEventListener('click', function () {
+            location.reload();
+        })
+    </script>
+</body>
+
+
+
+</html>
